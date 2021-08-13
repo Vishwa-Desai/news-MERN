@@ -1,50 +1,53 @@
+import React from 'react'
+
+
 import "./feed.css";
-import { FavoriteBorder, Comment, Share, Report,InsertPhoto} from '@material-ui/icons'
-export default function Feed() {
+
+
+export default function Feed({newsItem}) {
+    //console.log(newsItem);
+    
+    const fulldate=new Date(newsItem.publishedAt);
+    var date=fulldate.toString().split(" ");
+    const hour=parseInt(date[4].substring(0,2));
+    const time=hour>12?true:false;
     return (
-        <div className="main">
-            <div className="newPost">
-                <div className="top">
-                    <div className="profile"> <img src="/assets/person/1.jpg" alt="logo" align="left" className="profileImg" />
-                    <textarea className="input"  type="text" placeholder="What's Happening!!!"></textarea>
-                        </div>    
-                </div>
-                <div className="buttons">
-                    <label for="img" id="img1">
-                        <InsertPhoto></InsertPhoto>
-                    </label>
-                    <input type="file" id="img" className="image"></input>
-                    <button className="post">Post</button>
-
-                </div>
-            </div>
             <div className="feed">
-                <div className="container">
+                <div className="container1">
                     <div className="top">
-                        <div className="profile"> <img src="/assets/person/1.jpg" alt="logo" align="left" className="profileImg" />
-                        <span className="profileName"> Ban Awad</span><br />
-                        <span className="time">8 months ago </span>
+                        <div className="news-img"> <img src={newsItem.urlToImage?newsItem.urlToImage:"http://www.aaru.edu.jo/websites/aaru2/wp-content/plugins/learnpress/assets/images/no-image.png?Mobile=1&Source=%2F%5Flayouts%2Fmobile%2Fdispform%2Easpx%3FList%3D78b536db%252De7c7%252D45d9%252Da661%252Ddb2a2aa2fbaf%26View%3D6efc759a%252D0646%252D433c%252Dab6e%252D2f027ffe0799%26RootFolder%3D%252Fwebsites%252Faaru2%252Fwp%252Dcontent%252Fplugins%252Flearnpress%252Fassets%252Fimages%26ID%3D4786%26CurrentPage%3D1"} alt={newsItem.title} align="left" className="profileImg" />
                         </div>
-                            
+                       <div className="newsText">
+                           <div className="upperPart">
+                                <span className="newsTitle">{newsItem.title}</span> <br />
+                                <span className="author">
+                                    <a href={newsItem.url} tarhet="__blank">
+                                    </a>
+                                    <b>short</b> {" "}
+                                    <span className="muted">
+                                    by {newsItem.author?newsItem.author:"unknown"} /{" "}
+                                     {
+                                        time?`${hour-12}:${date[4].substring(3,5)} pm`:`${hour}:${date[4].substring(3,5)} am`} {" "}
+                                        on {date[2]} {date[1]} {date[3]}, {date[0]}
+                                    
+                                    </span>
+                                </span>
+                           </div><br /> 
+                           <div className="lowerPart">
+                               <div className="desc">
+                                   {newsItem.description}
+                               </div>
+                               <span className="readMore">
+                                   read more at {" "}
+                                   <a href={newsItem.url} tarhet="__blank" className="link">
+                                   <b> {newsItem.source.name}</b>
+                                   </a>
+                               </span>
+                           </div> 
+                        </div>     
                     </div>
-                    <div className="caption">
-                        Natural language processing (NLP) is an area of artificial intelligence related to the processing of natural languages by computers.
-                        <div className="link">
-                            Link To The Article: <br /><a href="https://techibytes.com/finally-android-11-beta-is-here/">https://techibytes.com/finally-android-11-beta-is-here/</a>
-                        </div>
-                    </div>
-                    <div className="img">
-                        <img src="/assets/1.png" alt="image" />
-                    </div>
-                    <div className="icons">
-                        <div className="icon"><FavoriteBorder className="icon1"></FavoriteBorder></div>
-                        <div className="icon"><Comment className="icon1"></Comment></div>
-                        <div className="icon"><Share className="icon1"></Share></div>
-                        <div className="icon"><Report className="icon1"></Report></div>
-                    </div>
-
+                    
                 </div>
             </div>
-        </div>
     )
 }

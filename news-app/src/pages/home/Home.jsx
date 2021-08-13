@@ -1,20 +1,17 @@
 import React from 'react'
 import Topbar from "../../components/topbar/Topbar";
-import Sidebar from "../../components/sidebar/Sidebar";
 import Feed from "../../components/feed/Feed";
-import Rightbar from "../../components/rightbar/Rightbar";
 import Footer from "../../components/footer/Footer";
 
 import "./home.css";
 
-function Home(){
+const Home=({setCategory})=>{
+    console.log('home:${setCategory} ');
     return(
         <>
-             <Topbar /> 
+             <Topbar setCategory={setCategory}/> 
             <div className="homeContainer">
-                <Sidebar />
                  <Feed /> 
-                <Rightbar /> 
             </div>   
             <Footer /> 
         </>
